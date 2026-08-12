@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Course Market Intelligence — Command Center</title>
+<style>
+:root{
+  --cream:#FFFBEB; --cream2:#FFF7ED; --paper:#FEF8EC;
+  --terra:#C2410C; --terra-d:#9A3412; --rust:#7C2D12;
+  --orange:#EA580C; --amber:#D97706; --gold:#F59E0B; --sand:#FBBF24;
+  --red:#B91C1C; --peach:#FED7AA; --peach-l:#FFEDD5;
+  --ink:#44200C; --ink-l:#78532E; --line:#E7CFA8;
+  --c1:#C2410C; --c2:#EA580C; --c3:#D97706; --c4:#F59E0B; --c5:#B91C1C;
+  --c6:#9A3412; --c7:#E08035; --c8:#D4862A; --c9:#A0531C; --c10:#EF9A4A; --c11:#C97A3D;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'Helvetica Neue',Arial,sans-serif;
+  background:
+    radial-gradient(circle at 15% 10%, #FDE8C8 0%, transparent 45%),
+    radial-gradient(circle at 85% 80%, #FBE4C4 0%, transparent 40%),
+    linear-gradient(160deg,#FFFBEB 0%,#FEF3D8 100%);
+  background-attachment:fixed; color:var(--ink); line-height:1.55; min-height:100vh;
+}
+.wrap{max-width:1080px;margin:0 auto;padding:22px 20px 60px}
+/* HEADER */
+header{
+  background:linear-gradient(135deg,#7C2D12 0%,#C2410C 60%,#D97706 100%);
+  border-radius:18px 18px 6px 6px; padding:26px 30px 22px; color:#FFF7ED;
+  box-shadow:0 8px 26px rgba(124,45,18,.28); position:relative; overflow:hidden;
+}
+header::after{content:"";position:absolute;right:-40px;top:-40px;width:220px;height:220px;
+  background:radial-gradient(circle,rgba(251,191,36,.25),transparent 70%);border-radius:50%}
+header h1{font-family:Georgia,'Times New Roman',serif;font-size:1.7rem;font-weight:700;letter-spacing:.3px;
+  text-shadow:0 1px 3px rgba(0,0,0,.2)}
+header .sub{font-size:.92rem;opacity:.92;margin-top:5px;max-width:680px}
+header .badgebar{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+header .b{background:rgba(255,247,237,.16);border:1px solid rgba(255,247,237,.3);
+  padding:5px 13px;border-radius:20px;font-size:.76rem;font-weight:600;backdrop-filter:blur(4px)}
+header .b strong{color:#FBBF24}
+/* KPI ROW */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin:18px 0 6px}
+.kpi{background:linear-gradient(160deg,#FFF7ED,#FEF3D8);border:1px solid var(--line);
+  border-radius:14px;padding:16px 16px 14px;position:relative;box-shadow:0 3px 10px rgba(124,45,18,.07)}
+.kpi .ic{position:absolute;right:12px;top:12px;font-size:1.3rem;opacity:.5}
+.kpi .val{font-family:Georgia,serif;font-size:1.55rem;font-weight:700;color:var(--terra-d);line-height:1.1}
+.kpi .lab{font-size:.74rem;color:var(--ink-l);text-transform:uppercase;letter-spacing:.6px;margin-top:5px;font-weight:600}
+.kpi .src{font-size:.66rem;color:var(--amber);margin-top:3px;font-weight:600}
+/* TABS */
+.tabs{display:flex;gap:4px;margin:20px 0 0;border-bottom:2px solid var(--line);flex-wrap:wrap}
+.tab{padding:10px 18px;cursor:pointer;font-size:.88rem;font-weight:600;color:var(--ink-l);
+  border-radius:9px 9px 0 0;border:1px solid transparent;border-bottom:none;transition:.18s;user-select:none}
+.tab:hover{background:var(--peach-l);color:var(--terra)}
+.tab.active{background:var(--terra);color:#FFF7ED;border-color:var(--terra-d);box-shadow:0 -2px 8px rgba(194,65,12,.2)}
+/* PANELS */
+.panel{display:none;animation:fade .35s ease}
+.panel.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.grid2{display:grid;grid-template-columns:1.3fr 1fr;gap:16px;margin-top:16px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:16px}
+.card{background:linear-gradient(160deg,#FFF7ED,#FEF8EC);border:1px solid var(--line);
+  border-radius:14px;padding:18px 20px;box-shadow:0 3px 12px rgba(124,45,18,.07)}
+.card h3{font-family:Georgia,serif;font-size:1.08rem;color:var(--terra-d);margin-bottom:3px}
+.card .desc{font-size:.78rem;color:var(--ink-l);margin-bottom:14px}
+/* charts */
+svg text{font-family:'Helvetica Neue',Arial,sans-serif}
+.bar-row{cursor:pointer}
+.bar-row:hover .bar-rect{filter:brightness(1.08)}
+.bar-rect{transition:filter .15s}
+.tooltip{position:fixed;background:#4A1D09;color:#FFF7ED;padding:7px 11px;border-radius:8px;
+  font-size:.76rem;pointer-events:none;z-index:99;opacity:0;transition:opacity .12s;
+  box-shadow:0 4px 14px rgba(0,0,0,.25);max-width:260px;line-height:1.4}
+.tooltip b{color:#FBBF24}
+/* insight callouts */
+.callout{background:linear-gradient(135deg,#FEF3C7,#FDE68A);border-left:4px solid var(--amber);
+  border-radius:8px;padding:11px 15px;margin:12px 0;font-size:.85rem;color:var(--rust)}
+.callout b{color:var(--terra-d)}
+.callout.red{background:linear-gradient(135deg,#FEE2E2,#FECACA);border-left-color:var(--red)}
+.callout.red b{color:var(--red)}
+/* tables */
+table{width:100%;border-collapse:collapse;font-size:.84rem;margin-top:6px}
+th{text-align:left;color:var(--terra-d);border-bottom:2px solid var(--line);padding:8px 8px;font-size:.76rem;text-transform:uppercase;letter-spacing:.5px}
+td{padding:8px 8px;border-bottom:1px solid #F3E2C4;color:var(--ink)}
+tr:hover td{background:#FEF6E6}
+.pill{display:inline-block;padding:2px 9px;border-radius:12px;font-size:.7rem;font-weight:700}
+.opp-bar{height:7px;border-radius:4px;background:#F3E2C4;overflow:hidden;margin-top:3px}
+.opp-bar>div{height:100%;border-radius:4px;background:linear-gradient(90deg,#F59E0B,#C2410C)}
+/* reco cards */
+.reco{background:linear-gradient(160deg,#FFF7ED,#FEF3D8);border:1px solid var(--line);
+  border-left:5px solid var(--terra);border-radius:12px;padding:15px 18px;margin-bottom:12px}
+.reco .head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.reco .dname{font-family:Georgia,serif;font-size:1.1rem;font-weight:700;color:var(--terra-d)}
+.reco .score{background:var(--terra);color:#FFF7ED;padding:4px 12px;border-radius:16px;font-size:.78rem;font-weight:700}
+.reco .why{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.reco .why span{background:var(--peach-l);color:var(--terra-d);border:1px solid var(--peach);
+  padding:3px 9px;border-radius:14px;font-size:.72rem;font-weight:600}
+.reco .stats{font-size:.78rem;color:var(--ink-l);margin-top:4px}
+.reco .stats b{color:var(--ink)}
+footer{margin-top:30px;padding-top:18px;border-top:2px solid var(--line);
+  font-size:.78rem;color:var(--ink-l);text-align:center;line-height:1.7}
+footer b{color:var(--terra-d)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;font-size:.74rem;color:var(--ink-l)}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:4px;vertical-align:middle}
+@media(max-width:760px){.kpis{grid-template-columns:repeat(2,1fr)}.grid2,.grid3{grid-template-columns:1fr}header h1{font-size:1.35rem}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Course Market Intelligence — Command Center</h1>
+  <div class="sub">What should TechnoEdge build &amp; sell next? A real-data analysis of <strong>4,569 online courses</strong> across Coursera &amp; Udemy, covering <strong>92.4 million learners</strong> — to find high-demand, high-quality training opportunities for an AI-first learning company.</div>
+  <div class="badgebar">
+    <span class="b">Built for <strong>TechnoEdge Learning Services</strong></span>
+    <span class="b">Solution Expert Intern · Portfolio</span>
+    <span class="b">Real data · Coursera + Udemy</span>
+    <span class="b">By <strong>Sairaj Kashid</strong></span>
+  </div>
+</header>
+
+<!-- KPIs -->
+<div class="kpis" id="kpis"></div>
+
+<!-- TABS -->
+<div class="tabs" id="tabs">
+  <div class="tab active" data-t="overview">Overview</div>
+  <div class="tab" data-t="demand">Domain Demand</div>
+  <div class="tab" data-t="opportunity">Opportunity Matrix</div>
+  <div class="tab" data-t="pricing">Pricing &amp; Trends</div>
+  <div class="tab" data-t="recommend">Recommendations</div>
+</div>
+
+<div id="tooltip" class="tooltip"></div>
+
+<!-- PANEL: OVERVIEW -->
+<div class="panel active" id="p-overview">
+  <div class="grid2">
+    <div class="card">
+      <h3>Where are the learners? — Demand by domain</h3>
+      <div class="desc">Total enrolled learners across Coursera &amp; Udemy, grouped into skill domains. Hover bars for detail.</div>
+      <div id="chart-demand"></div>
+    </div>
+    <div class="card">
+      <h3>Course difficulty mix</h3>
+      <div class="desc">Coursera courses by learner level — most of the market targets beginners.</div>
+      <div id="chart-level"></div>
+      <div class="callout"><b>Insight:</b> <b>55%</b> of courses are <b>Beginner</b> level, but only <b>2%</b> are <b>Advanced</b>. A premium advanced-track portfolio is a clear gap TechnoEdge can own.</div>
+    </div>
+  </div>
+  <div class="grid3">
+    <div class="card"><h3>Top providers</h3><div class="desc">Coursera orgs by total learners reached.</div><div id="chart-orgs"></div></div>
+    <div class="card"><h3>Certificate type</h3><div class="desc">How content is packaged.</div><div id="chart-cert"></div></div>
+    <div class="card"><h3>Market snapshot</h3><div class="desc">Key context for strategy.</div>
+      <div class="callout"><b>$884.9M</b> estimated enrolment revenue on Udemy alone (price × subscribers) — the corporate-upskilling market is large &amp; growing.</div>
+      <div class="callout red"><b>AI &amp; ML</b> has <b>9.2M learners</b> chasing just <b>50 courses</b> — extreme demand-to-supply ratio. TechnoEdge's AI-first identity is perfectly placed here.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PANEL: DEMAND -->
+<div class="panel" id="p-demand">
+  <div class="grid2">
+    <div class="card"><h3>Demand vs supply by domain</h3>
+      <div class="desc">Learners (demand, bars) vs number of courses (supply, line) — the widest gaps are the biggest opportunities.</div>
+      <div id="chart-ds"></div>
+    </div>
+    <div class="card"><h3>Average course rating by domain</h3>
+      <div class="desc">Coursera ratings show where the market is well-served vs where learners are still unsatisfied.</div>
+      <div id="chart-rating"></div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <h3>Domain leaderboard</h3>
+    <div class="desc">Every tracked domain ranked by learner demand, with supply, quality and opportunity score.</div>
+    <table id="tbl-domains"></table>
+  </div>
+</div>
+
+<!-- PANEL: OPPORTUNITY -->
+<div class="panel" id="p-opportunity">
+  <div class="card">
+    <h3>Opportunity Matrix — demand × supply × quality</h3>
+    <div class="desc">Each bubble = one domain. X-axis = supply (courses), Y-axis = demand (learners), bubble size = opportunity score. <b>Top-left = high demand, low supply = build here.</b> Hover for detail.</div>
+    <div id="chart-bubble" style="text-align:center"></div>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <h3>How the opportunity score is calculated</h3>
+    <div class="desc">A transparent, reproducible formula — not a black box.</div>
+    <div class="callout"><b>Opportunity Score =</b> (normalised demand) × (quality factor from avg rating) × (0.4 + 0.6 × (1 − normalised supply)) × 100.<br><b>Logic:</b> more learners = more demand; higher ratings = proven appetite for the topic; fewer existing courses = less competition. This is exactly the kind of analysis a Solution Expert would run before recommending a new training product.</div>
+  </div>
+</div>
+
+<!-- PANEL: PRICING -->
+<div class="panel" id="p-pricing">
+  <div class="grid2">
+    <div class="card"><h3>Price vs enrolment (Udemy)</h3>
+      <div class="desc">Average subscribers per course by price band — what price points actually attract learners.</div>
+      <div id="chart-price"></div>
+      <div class="callout"><b>Insight:</b> <b>Free</b> courses average <b>11,533</b> subscribers — 8× more than mid-priced paid courses. A free "feeder" course is a proven lead-generation tactic.</div>
+    </div>
+    <div class="card"><h3>Course launches over time (Udemy)</h3>
+      <div class="desc">Supply growth 2012–2017 shows how the market exploded.</div>
+      <div id="chart-year"></div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <h3>Udemy subject categories</h3>
+    <div class="desc">The four major Udemy subjects by course count and total learners.</div>
+    <div id="chart-subject"></div>
+  </div>
+</div>
+
+<!-- PANEL: RECOMMENDATIONS -->
+<div class="panel" id="p-recommend">
+  <div class="callout" style="margin-top:16px"><b>The bottom line for TechnoEdge:</b> Based on real market data, these are the highest-opportunity training domains to build next — ranked by a demand × quality × supply-gap score.</div>
+  <div id="reco-list" style="margin-top:14px"></div>
+  <div class="card" style="margin-top:16px">
+    <h3>Mega-courses to learn from (top 15 by enrolment)</h3>
+    <div class="desc">The most-enrolled Coursera courses — study what makes them win, then build TechnoEdge's version.</div>
+    <table id="tbl-top"></table>
+  </div>
+</div>
+
+<footer>
+  <b>Data sources:</b> Coursera course catalogue (891 courses, scraped from coursera.org) &amp; Udemy courses dataset (3,678 courses). All figures are real, computed in Python from raw CSV records.<br>
+  <b>Built by Sairaj Sandip Kashid</b> · github.com/sairajkashid-prog · For TechnoEdge Solution Expert Intern application · Warm-coloured, hand-crafted, zero external dependencies.
+</footer>
+
+</div>
+
+<script>
+const DATA = {"meta":{"courseraCourses":891,"udemyCourses":3678,"totalCourses":4569,"totalLearners":92441020,"estMarketRevenueUdemy":884921315,"avgCourseraRating":4.68,"domainsTracked":11},"domains":[{"domain":"Other / General","courses":2275,"learners":32975440,"avgRating":4.71,"revenueEst":200221915,"coursera":420,"udemy":1855,"oppScore":37.7},{"domain":"Software Development","courses":577,"learners":14249524,"avgRating":4.65,"revenueEst":293603465,"coursera":79,"udemy":498,"oppScore":34.1},{"domain":"Data Science & Analytics","courses":82,"learners":9809572,"avgRating":4.59,"revenueEst":1170850,"coursera":74,"udemy":8,"oppScore":26.7},{"domain":"AI & Machine Learning","courses":50,"learners":9200368,"avgRating":4.6,"revenueEst":347985,"coursera":46,"udemy":4,"oppScore":25.3},{"domain":"Business & Management","courses":196,"learners":8475660,"avgRating":4.68,"revenueEst":17397400,"coursera":128,"udemy":68,"oppScore":22.8},{"domain":"Communication & Soft Skills","courses":36,"learners":5368599,"avgRating":4.7,"revenueEst":72310,"coursera":32,"udemy":4,"oppScore":15.2},{"domain":"Web Development","courses":416,"learners":4008666,"avgRating":4.72,"revenueEst":250389435,"coursera":6,"udemy":410,"oppScore":10.2},{"domain":"Finance & Accounting","courses":768,"learners":3992232,"avgRating":4.65,"revenueEst":95497715,"coursera":43,"udemy":725,"oppScore":9.0},{"domain":"Cloud & DevOps","courses":57,"learners":2364872,"avgRating":4.61,"revenueEst":6151710,"coursera":32,"udemy":25,"oppScore":6.5},{"domain":"Data Tools & Excel","courses":81,"learners":1374206,"avgRating":4.73,"revenueEst":16599285,"coursera":13,"udemy":68,"oppScore":3.9},{"domain":"Cybersecurity","courses":31,"learners":621881,"avgRating":4.59,"revenueEst":3469245,"coursera":18,"udemy":13,"oppScore":1.7}],"levelDist":[{"level":"Beginner","count":487},{"level":"Intermediate","count":198},{"level":"Mixed","count":187},{"level":"Advanced","count":19}],"certTypeDist":[{"type":"COURSE","count":582},{"type":"SPECIALIZATION","count":297},{"type":"PROFESSIONAL CERTIFICATE","count":12}],"topOrgs":[{"org":"University of Michigan","learners":7437700,"courses":41},{"org":"University of Pennsylvania","learners":5501300,"courses":59},{"org":"Stanford University","learners":4854000,"courses":16},{"org":"Univ. of California, Irvine","learners":4326000,"courses":27},{"org":"Johns Hopkins University","learners":4298900,"courses":28},{"org":"Duke University","learners":3967600,"courses":28},{"org":"Yale University","learners":3952000,"courses":17},{"org":"IBM","learners":2956400,"courses":22},{"org":"deeplearning.ai","learners":2863400,"courses":16},{"org":"Google Cloud","learners":2604300,"courses":34}],"priceBins":[{"label":"Free","courses":310,"avgSubs":11533,"totalSubs":3575525},{"label":"$1-50","courses":2034,"avgSubs":1431,"totalSubs":2911144},{"label":"$51-100","courses":611,"avgSubs":2703,"totalSubs":1651988},{"label":"$101-150","courses":238,"avgSubs":3666,"totalSubs":872525},{"label":"$151-200","courses":485,"avgSubs":5665,"totalSubs":2747938}],"subjectDist":[{"subject":"Web Development","courses":1200,"learners":7980572},{"subject":"Business Finance","courses":1195,"learners":1868711},{"subject":"Musical Instruments","courses":680,"learners":846689},{"subject":"Graphic Design","courses":603,"learners":1063148}],"yearTrend":[{"year":2012,"courses":45,"learners":555339},{"year":2013,"courses":202,"learners":1723438},{"year":2014,"courses":491,"learners":1930406},{"year":2015,"courses":1014,"learners":3475324},{"year":2016,"courses":1206,"learners":2966644},{"year":2017,"courses":715,"learners":988941}],"topCourses":[{"title":"Machine Learning","org":"Stanford University","rating":4.9,"enroll":3200000,"level":"Mixed","domain":"AI & ML"},{"title":"The Science of Well-Being","org":"Yale University","rating":4.9,"enroll":2500000,"level":"Mixed","domain":"Other"},{"title":"Python for Everybody","org":"University of Michigan","rating":4.8,"enroll":1500000,"level":"Beginner","domain":"Software Dev"},{"title":"Programming for Everybody (Python)","org":"University of Michigan","rating":4.8,"enroll":1300000,"level":"Mixed","domain":"Software Dev"},{"title":"Data Science","org":"Johns Hopkins University","rating":4.5,"enroll":830000,"level":"Beginner","domain":"Data Science"},{"title":"Career Success","org":"UC Irvine","rating":4.4,"enroll":790000,"level":"Beginner","domain":"Other"},{"title":"English for Career Development","org":"Univ. of Pennsylvania","rating":4.8,"enroll":760000,"level":"Mixed","domain":"Soft Skills"},{"title":"Successful Negotiation","org":"University of Michigan","rating":4.8,"enroll":750000,"level":"Mixed","domain":"Soft Skills"},{"title":"Data Science: Foundations using R","org":"Johns Hopkins University","rating":4.6,"enroll":740000,"level":"Beginner","domain":"Data Science"},{"title":"Deep Learning","org":"deeplearning.ai","rating":4.8,"enroll":690000,"level":"Intermediate","domain":"AI & ML"},{"title":"Neural Networks & Deep Learning","org":"deeplearning.ai","rating":4.9,"enroll":630000,"level":"Intermediate","domain":"AI & ML"},{"title":"Improve Your English Communication","org":"Georgia Tech","rating":4.7,"enroll":610000,"level":"Beginner","domain":"Soft Skills"},{"title":"Academic English: Writing","org":"UC Irvine","rating":4.7,"enroll":540000,"level":"Beginner","domain":"Soft Skills"},{"title":"Business Foundations","org":"Univ. of Pennsylvania","rating":4.7,"enroll":510000,"level":"Beginner","domain":"Business"},{"title":"Excel to MySQL: Analytics for Business","org":"Duke University","rating":4.6,"enroll":490000,"level":"Beginner","domain":"Data Science"}],"recommendations":[{"domain":"Software Development","oppScore":34.1,"learners":14249524,"avgRating":4.65,"reasons":["very high learner demand","learners rate content highly"]},{"domain":"Data Science & Analytics","oppScore":26.7,"learners":9809572,"avgRating":4.59,"reasons":["very high learner demand"]},{"domain":"AI & Machine Learning","oppScore":25.3,"learners":9200368,"avgRating":4.6,"reasons":["very high learner demand","learners rate content highly"]},{"domain":"Business & Management","oppScore":22.8,"learners":8475660,"avgRating":4.68,"reasons":["very high learner demand","learners rate content highly"]},{"domain":"Communication & Soft Skills","oppScore":15.2,"learners":5368599,"avgRating":4.7,"reasons":["very high learner demand","learners rate content highly"]},{"domain":"Web Development","oppScore":10.2,"learners":4008666,"avgRating":4.72,"reasons":["very high learner demand","learners rate content highly"]}]};
+
+/* ---------- helpers ---------- */
+const COL=["#C2410C","#EA580C","#D97706","#F59E0B","#B91C1C","#9A3412","#E08035","#D4862A","#A0531C","#EF9A4A","#C97A3D"];
+const fmtN=n=>n.toLocaleString('en-IN');
+function fmtM(n){if(n>=1e9)return (n/1e9).toFixed(1)+"B";if(n>=1e6)return (n/1e6).toFixed(1)+"M";if(n>=1e3)return (n/1e3).toFixed(1)+"k";return ""+n}
+function fmtMoney(n){if(n>=1e9)return "$"+(n/1e9).toFixed(1)+"B";if(n>=1e6)return "$"+(n/1e6).toFixed(1)+"M";if(n>=1e3)return "$"+(n/1e3).toFixed(1)+"k";return "$"+n}
+const tip=document.getElementById('tooltip');
+function showTip(e,html){tip.innerHTML=html;tip.style.opacity=1;tip.style.left=(e.clientX+12)+'px';tip.style.top=(e.clientY-10)+'px'}
+function moveTip(e){tip.style.left=(e.clientX+12)+'px';tip.style.top=(e.clientY-10)+'px'}
+function hideTip(){tip.style.opacity=0}
+function el(id){return document.getElementById(id)}
+
+/* ---------- KPI cards ---------- */
+(function kpis(){
+  const m=DATA.meta, d=DATA.domains.filter(x=>x.domain!=="Other / General");
+  const aiL=d.find(x=>x.domain==="AI & Machine Learning");
+  const k=[
+    {ic:'📚',val:fmtN(m.totalCourses),lab:'Courses analysed',src:'Coursera + Udemy'},
+    {ic:'👥',val:fmtM(m.totalLearners),lab:'Total learners',src:'Real enrolment data'},
+    {ic:'💰',val:fmtMoney(m.estMarketRevenueUdemy),lab:'Est. Udemy market',src:'price × subscribers'},
+    {ic:'⭐',val:m.avgCourseraRating,lab:'Avg Coursera rating',src:'891 courses'}
+  ];
+  el('kpis').innerHTML=k.map(x=>`<div class="kpi"><div class="ic">${x.ic}</div><div class="val">${x.val}</div><div class="lab">${x.lab}</div><div class="src">${x.src}</div></div>`).join('');
+})();
+
+/* ---------- horizontal bar chart ---------- */
+function hBar(container,data,opts={}){
+  const o=Object.assign({w:420,h:Math.max(180,data.length*34+20),max:Math.max(...data.map(d=>d.value)),
+    fmt:fmtM,unit:'',colorFn:(i)=>COL[i%COL.length]},opts);
+  let svg=`<svg width="100%" viewBox="0 0 ${o.w} ${o.h}" preserveAspectRatio="xMidYMid meet">`;
+  const labW=118, barX=labW+6, barW=o.w-labW-70;
+  data.forEach((d,i)=>{
+    const y=i*34+6, bh=22, bw=Math.max(2,(d.value/o.max)*barW);
+    const c=o.colorFn(i);
+    svg+=`<g class="bar-row" data-i="${i}">
+      <text x="${labW-6}" y="${y+bh-6}" text-anchor="end" font-size="10.5" fill="#5b3a1a">${d.label}</text>
+      <rect class="bar-rect" x="${barX}" y="${y}" width="${bw}" height="${bh}" rx="4" fill="url(#g${container.slice(1)})"/>
+      <rect class="bar-rect" x="${barX}" y="${y}" width="${bw}" height="${bh}" rx="4" fill="${c}" opacity="0.92"/>
+      <text x="${barX+bw+5}" y="${y+bh-6}" font-size="10" fill="#7C2D12" font-weight="700">${o.fmt(d.value)}${o.unit}</text></g>`;
+  });
+  svg+=`<defs><linearGradient id="g${container.slice(1)}" x1="0" x2="1"><stop offset="0" stop-color="${o.colorFn(0)}" stop-opacity="0.5"/><stop offset="1" stop-color="${o.colorFn(1)||o.colorFn(0)}" stop-opacity="0.9"/></linearGradient></defs></svg>`;
+  const node=el(container); node.innerHTML=svg;
+  node.querySelectorAll('.bar-row').forEach((g,i)=>{
+    g.addEventListener('mousemove',e=>{const d=data[i];showTip(e,`<b>${d.label}</b><br>${o.fmt(d.value)}${o.unit}${d.extra?'<br>'+d.extra:''}`);moveTip(e)});
+    g.addEventListener('mouseleave',hideTip);
+  });
+}
+
+/* ---------- donut chart ---------- */
+function donut(container,data,opts={}){
+  const o=Object.assign({w:200,h:180,r:62,rInner:38},opts);
+  const total=data.reduce((s,d)=>s+d.value,0);
+  let svg=`<svg width="${o.w}" height="${o.h}" viewBox="0 0 ${o.w} ${o.h}">`;
+  const cx=o.w/2, cy=o.h/2-6; let a0=-Math.PI/2;
+  data.forEach((d,i)=>{
+    const frac=d.value/total, a1=a0+frac*2*Math.PI;
+    const x0=cx+o.r*Math.cos(a0), y0=cy+o.r*Math.sin(a0);
+    const x1=cx+o.r*Math.cos(a1), y1=cy+o.r*Math.sin(a1);
+    const xi1=cx+o.rInner*Math.cos(a1), yi1=cy+o.rInner*Math.sin(a1);
+    const xi0=cx+o.rInner*Math.cos(a0), yi0=cy+o.rInner*Math.sin(a0);
+    const large=frac>0.5?1:0, c=COL[i%COL.length];
+    svg+=`<path d="M${x0} ${y0} A${o.r} ${o.r} 0 ${large} 1 ${x1} ${y1} L${xi1} ${yi1} A${o.rInner} ${o.rInner} 0 ${large} 0 ${xi0} ${yi0} Z" fill="${c}" stroke="#FFFBEB" stroke-width="2" class="bar-row" data-i="${i}"/>`;
+    a0=a1;
+  });
+  svg+=`<text x="${cx}" y="${cy-2}" text-anchor="middle" font-size="20" font-weight="700" fill="#7C2D12">${total}</text>`;
+  svg+=`<text x="${cx}" y="${cy+14}" text-anchor="middle" font-size="9" fill="#9A3412">courses</text></svg>`;
+  let leg=`<div class="legend">`+data.map((d,i)=>`<span><i style="background:${COL[i%COL.length]}"></i>${d.label} <b>${Math.round(d.value/total*100)}%</b></span>`).join('')+`</div>`;
+  el(container).innerHTML=`<div style="text-align:center">${svg}</div>${leg}`;
+  el(container).querySelectorAll('.bar-row').forEach((p,i)=>{p.addEventListener('mousemove',e=>{showTip(e,`<b>${data[i].label}</b><br>${data[i].value} courses (${Math.round(data[i].value/total*100)}%)`);moveTip(e)});p.addEventListener('mouseleave',hideTip)});
+}
+
+/* ---------- vertical bar chart ---------- */
+function vBar(container,data,opts={}){
+  const o=Object.assign({w:420,h:210,max:Math.max(...data.map(d=>d.value)),fmt:fmtN,unit:''},opts);
+  let svg=`<svg width="100%" viewBox="0 0 ${o.w} ${o.h}" preserveAspectRatio="xMidYMid meet">`;
+  const padL=36,padB=30,plotW=o.w-padL-12,plotH=o.h-padB-16;
+  const bw=plotW/data.length*0.6, gap=plotW/data.length;
+  // gridlines
+  for(let g=0;g<=4;g++){const gy=16+plotH*(1-g/4);const gv=Math.round(o.max*g/4);
+    svg+=`<line x1="${padL}" y1="${gy}" x2="${padL+plotW}" y2="${gy}" stroke="#EFD9B0" stroke-width="1"/>`;
+    svg+=`<text x="${padL-4}" y="${gy+3}" text-anchor="end" font-size="8.5" fill="#9A3412">${o.fmt(gv)}</text>`}
+  data.forEach((d,i)=>{
+    const x=padL+i*gap+gap*0.2, bh=(d.value/o.max)*plotH, y=16+plotH-bh, c=COL[i%COL.length];
+    svg+=`<g class="bar-row" data-i="${i}"><rect class="bar-rect" x="${x}" y="${y}" width="${bw}" height="${bh}" rx="4" fill="${c}" opacity="0.9"/>
+      <text x="${x+bw/2}" y="${o.h-padB+14}" text-anchor="middle" font-size="9" fill="#5b3a1a">${d.label}</text></g>`;
+  });
+  svg+=`</svg>`;
+  el(container).innerHTML=svg;
+  el(container).querySelectorAll('.bar-row').forEach((g,i)=>{g.addEventListener('mousemove',e=>{showTip(e,`<b>${data[i].label}</b><br>${o.fmt(data[i].value)}${o.unit}`);moveTip(e)});g.addEventListener('mouseleave',hideTip)});
+}
+
+/* ---------- line chart ---------- */
+function lineChart(container,data,opts={}){
+  const o=Object.assign({w:420,h:210,maxV:Math.max(...data.map(d=>d.value))},opts);
+  let svg=`<svg width="100%" viewBox="0 0 ${o.w} ${o.h}" preserveAspectRatio="xMidYMid meet">`;
+  const padL=36,padB=34,plotW=o.w-padL-14,plotH=o.h-padB-16;
+  for(let g=0;g<=4;g++){const gy=16+plotH*(1-g/4);svg+=`<line x1="${padL}" y1="${gy}" x2="${padL+plotW}" y2="${gy}" stroke="#EFD9B0" stroke-width="1"/><text x="${padL-4}" y="${gy+3}" text-anchor="end" font-size="8.5" fill="#9A3412">${Math.round(o.maxV*g/4)}</text>`}
+  const pts=data.map((d,i)=>[padL+(i/(data.length-1))*plotW, 16+plotH-(d.value/o.maxV)*plotH]);
+  let path=pts.map((p,i)=>(i?'L':'M')+p[0]+' '+p[1]).join(' ');
+  svg+=`<path d="${path}" fill="none" stroke="#C2410C" stroke-width="2.5" stroke-linejoin="round"/>`;
+  // area
+  svg+=`<path d="${path} L${pts[pts.length-1][0]} ${16+plotH} L${pts[0][0]} ${16+plotH} Z" fill="url(#areaG)" opacity="0.3"/>`;
+  svg+=`<defs><linearGradient id="areaG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EA580C"/><stop offset="1" stop-color="#FBBF24" stop-opacity="0.1"/></linearGradient></defs>`;
+  pts.forEach((p,i)=>{svg+=`<circle class="bar-row" data-i="${i}" cx="${p[0]}" cy="${p[1]}" r="4.5" fill="#B91C1C" stroke="#FFFBEB" stroke-width="1.5"/>`;
+    svg+=`<text x="${p[0]}" y="${o.h-padB+14}" text-anchor="middle" font-size="9" fill="#5b3a1a">${data[i].label}</text>`});
+  svg+=`</svg>`;
+  el(container).innerHTML=svg;
+  el(container).querySelectorAll('.bar-row').forEach((c,i)=>{c.addEventListener('mousemove',e=>{showTip(e,`<b>${data[i].label}</b><br>${o.maxV===Math.max(...data.map(d=>d.learners))?fmtM(data[i].value):data[i].value} ${o.unit||''}`);moveTip(e)});c.addEventListener('mouseleave',hideTip)});
+}
+
+/* ---------- bubble / opportunity matrix ---------- */
+function bubbleChart(container){
+  const data=DATA.domains.filter(d=>d.domain!=="Other / General");
+  const w=620,h=360, padL=52,padB=46,padT=20,padR=20;
+  const maxS=Math.max(...data.map(d=>d.courses)), maxD=Math.max(...data.map(d=>d.learners));
+  const plotW=w-padL-padR, plotH=h-padB-padT;
+  let svg=`<svg width="100%" viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid meet">`;
+  // grid
+  for(let g=0;g<=4;g++){const gy=padT+plotH*(1-g/4);svg+=`<line x1="${padL}" y1="${gy}" x2="${padL+plotW}" y2="${gy}" stroke="#EFD9B0" stroke-width="1"/><text x="${padL-5}" y="${gy+3}" text-anchor="end" font-size="8.5" fill="#9A3412">${fmtM(Math.round(maxD*g/4))}</text>`}
+  for(let g=0;g<=4;g++){const gx=padL+plotW*g/4;svg+=`<line x1="${gx}" y1="${padT}" x2="${gx}" y2="${padT+plotH}" stroke="#EFD9B0" stroke-width="1"/><text x="${gx}" y="${h-padB+16}" text-anchor="middle" font-size="8.5" fill="#9A3412">${Math.round(maxS*g/4)}</text>`}
+  // axis labels
+  svg+=`<text x="${padL+plotW/2}" y="${h-6}" text-anchor="middle" font-size="10" fill="#7C2D12" font-weight="700">Supply → number of courses</text>`;
+  svg+=`<text x="14" y="${padT+plotH/2}" text-anchor="middle" font-size="10" fill="#7C2D12" font-weight="700" transform="rotate(-90 14 ${padT+plotH/2})">Demand → learners</text>`;
+  // quadrant hint
+  svg+=`<rect x="${padL}" y="${padT}" width="${plotW*0.5}" height="${plotH*0.5}" fill="#F59E0B" opacity="0.07"/>`;
+  svg+=`<text x="${padL+8}" y="${padT+14}" font-size="8.5" fill="#B91C1C" font-weight="700">★ BUILD HERE</text>`;
+  data.forEach((d,i)=>{
+    const x=padL+(d.courses/maxS)*plotW, y=padT+plotH-(d.learners/maxD)*plotH;
+    const r=Math.max(8, 8+d.oppScore*0.45), c=COL[i%COL.length];
+    svg+=`<g class="bar-row" data-i="${i}"><circle cx="${x}" cy="${y}" r="${r}" fill="${c}" opacity="0.78" stroke="#FFFBEB" stroke-width="1.5"/>`;
+    if(d.courses<120) svg+=`<text x="${x}" y="${y+3}" text-anchor="middle" font-size="8" fill="#fff" font-weight="700">${d.domain.split(' ')[0].length>6?d.domain.split(' ')[0].slice(0,5):d.domain.split(' ')[0]}</text>`;
+    svg+=`</g>`;
+  });
+  svg+=`</svg>`;
+  el(container).innerHTML=svg;
+  el(container).querySelectorAll('.bar-row').forEach((g,i)=>{const d=data[i];g.addEventListener('mousemove',e=>{showTip(e,`<b>${d.domain}</b><br>Learners: ${fmtM(d.learners)}<br>Courses: ${d.courses}<br>Rating: ${d.avgRating||'n/a'}<br>Opp score: <b>${d.oppScore}</b>`);moveTip(e)});g.addEventListener('mouseleave',hideTip)});
+}
+
+/* ---------- combo demand vs supply ---------- */
+function comboDS(container){
+  const data=DATA.domains.filter(d=>d.domain!=="Other / General").sort((a,b)=>b.learners-a.learners);
+  const w=480,h=320,labW=110,padB=24,padR=70;
+  const maxL=Math.max(...data.map(d=>d.learners)), maxC=Math.max(...data.map(d=>d.courses));
+  const barW=w-labW-padR, rowH=28;
+  let svg=`<svg width="100%" viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid meet">`;
+  // supply scale line max
+  const maxScale=Math.round(maxL/1e6*10)/10;
+  data.forEach((d,i)=>{
+    const y=i*rowH+6, bh=18;
+    const bw=(d.learners/maxL)*barW;
+    const c=COL[i%COL.length];
+    svg+=`<text x="${labW-6}" y="${y+bh-5}" text-anchor="end" font-size="9" fill="#5b3a1a">${d.domain.length>16?d.domain.slice(0,15)+'…':d.domain}</text>`;
+    svg+=`<g class="bar-row" data-i="${i}"><rect class="bar-rect" x="${labW+4}" y="${y}" width="${bw}" height="${bh}" rx="3" fill="${c}" opacity="0.85"/>`;
+    // supply dot+line
+    const sx=labW+4+(d.courses/maxC)*barW;
+    svg+=`<line x1="${labW+4}" y1="${y+bh/2}" x2="${sx}" y2="${y+bh/2}" stroke="#7C2D12" stroke-width="1.5" stroke-dasharray="3 2"/>`;
+    svg+=`<circle cx="${sx}" cy="${y+bh/2}" r="4" fill="#7C2D12"/></g>`;
+    svg+=`<text x="${labW+4+bw+4}" y="${y+bh-5}" font-size="9" fill="#7C2D12" font-weight="700">${fmtM(d.learners)}</text>`;
+  });
+  svg+=`</svg>`;
+  el(container).innerHTML=`${svg}<div class="legend"><span><i style="background:${COL[0]}"></i>Learners (demand)</span><span><i style="background:#7C2D12;border-radius:50%"></i>Courses (supply line)</span></div>`;
+  el(container).querySelectorAll('.bar-row').forEach((g,i)=>{const d=data[i];g.addEventListener('mousemove',e=>{showTip(e,`<b>${d.domain}</b><br>Demand: ${fmtM(d.learners)} learners<br>Supply: ${d.courses} courses<br>Gap ratio: ${(d.learners/d.courses/1000).toFixed(1)}k learners/course`);moveTip(e)});g.addEventListener('mouseleave',hideTip)});
+}
+
+/* ---------- render overview ---------- */
+hBar('chart-demand',DATA.domains.filter(d=>d.domain!=="Other / General").slice(0,9).map(d=>({label:d.domain.replace(' & ',' &\n'),value:d.learners,extra:d.courses+' courses'})),{w:430});
+donut('chart-level',DATA.levelDist.map(d=>({label:d.level,value:d.count})));
+hBar('chart-orgs',DATA.topOrgs.slice(0,7).map(d=>({label:d.org.replace('University','Univ.').replace(' of ',' of '),value:d.learners,extra:d.courses+' courses'})),{w:300,h:250});
+donut('chart-cert',DATA.certTypeDist.map(d=>({label:d.type.charAt(0)+d.type.slice(1).toLowerCase(),value:d.count})),{w:200,h:170});
+
+/* ---------- render demand ---------- */
+comboDS('chart-ds');
+hBar('chart-rating',DATA.domains.filter(d=>d.avgRating&&d.domain!=="Other / General").sort((a,b)=>b.avgRating-a.avgRating).map(d=>({label:d.domain.replace(' & ',' &\n'),value:d.avgRating,extra:d.courses+' courses'})),{w:430,max:5,fmt:v=>v.toFixed(2),unit:' ★'});
+(function tblD(){
+  const rows=DATA.domains.filter(d=>d.domain!=="Other / General").sort((a,b)=>b.oppScore-a.oppScore);
+  el('tbl-domains').innerHTML=`<thead><tr><th>Domain</th><th>Learners</th><th>Courses</th><th>Avg rating</th><th>Opp. score</th></tr></thead><tbody>`+
+    rows.map(d=>`<tr><td><b>${d.domain}</b></td><td>${fmtM(d.learners)}</td><td>${d.courses}</td><td>${d.avgRating?d.avgRating.toFixed(2)+' ★':'—'}</td><td><div class="opp-bar"><div style="width:${Math.min(100,d.oppScore*2.4)}%"></div></div><span style="font-size:.78rem;color:#7C2D12;font-weight:700">${d.oppScore}</span></td></tr>`).join('')+`</tbody>`;
+})();
+
+/* ---------- render opportunity ---------- */
+bubbleChart('chart-bubble');
+
+/* ---------- render pricing ---------- */
+vBar('chart-price',DATA.priceBins.map(d=>({label:d.label,value:d.avgSubs})),{max:12000,fmt:fmtM,unit:' avg subs'});
+lineChart('chart-year',DATA.yearTrend.map(d=>({label:d.year,value:d.courses})),{w:430,maxV:1300,unit:'courses'});
+hBar('chart-subject',DATA.subjectDist.map(d=>({label:d.subject,value:d.courses,extra:fmtM(d.learners)+' learners'})),{w:460});
+
+/* ---------- render recommendations ---------- */
+(function recos(){
+  el('reco-list').innerHTML=DATA.recommendations.map((r,i)=>`
+    <div class="reco">
+      <div class="head">
+        <div><span style="font-size:.8rem;color:#9A3412;font-weight:700">#${i+1}</span> <span class="dname">${r.domain}</span></div>
+        <span class="score">Opportunity ${r.oppScore}</span>
+      </div>
+      <div class="why">${r.reasons.map(x=>`<span>✓ ${x}</span>`).join('')}</div>
+      <div class="stats"><b>${fmtM(r.learners)}</b> learners · <b>${r.avgRating?r.avgRating.toFixed(2):'—'} ★</b> avg rating · existing supply analysed. <b>Recommendation:</b> build a tiered TechnoEdge training program in this domain, led by a free feeder module + paid advanced track.</div>
+    </div>`).join('');
+  el('tbl-top').innerHTML=`<thead><tr><th>#</th><th>Course</th><th>Provider</th><th>Learners</th><th>Rating</th><th>Level</th></tr></thead><tbody>`+
+    DATA.topCourses.map((c,i)=>`<tr><td>${i+1}</td><td><b>${c.title}</b><br><span style="font-size:.7rem;color:#D97706">${c.domain}</span></td><td>${c.org}</td><td>${fmtM(c.enroll)}</td><td><span class="pill" style="background:#FEF3C7;color:#9A3412">${c.rating} ★</span></td><td>${c.level}</td></tr>`).join('')+`</tbody>`;
+})();
+
+/* ---------- tabs ---------- */
+document.querySelectorAll('.tab').forEach(t=>{
+  t.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');
+    el('p-'+t.dataset.t).classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
