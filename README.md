@@ -73,4 +73,15 @@ index.html              # the full interactive dashboard (self-contained)
 It demonstrates the exact Solution-Expert loop: **analyse a business problem → use real data → produce clear recommendations → present it beautifully.** And it's domain-aligned — it speaks directly to TechnoEdge's learning business, not a generic dataset.
 
 ---
-*Warm-coloured · hand-crafted · real data · zero dependencies*
+## 🎨 Design — Luxurious Liquid Glass
+
+- **Midnight navy + royal gold + emerald** palette with Georgia serif headings
+- **Liquid-glass cards** — `backdrop-filter: blur() saturate()` with gradient borders (mask-composite technique)
+- **3D floating hero cards** with `rotateY/rotateX` parallax + drifting gold particle background
+- **3D bar charts** with real depth faces (front, top, side) using `preserve-3d`
+- **3D tilt KPI cards** — hover triggers `rotateY(-8deg) rotateX(4deg) translateZ(10px)`
+- **Scroll-reveal animations** via IntersectionObserver
+- **Zero external dependencies** — pure HTML/CSS/vanilla JS, no CDNs
+
+---
+*Luxurious liquid-glass · 3D animated · real data · zero dependencies*
