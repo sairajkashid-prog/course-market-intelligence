@@ -7,44 +7,45 @@
 <style>
 /* ===== LUXURY LIQUID-GLASS PALETTE ===== */
 :root{
-  --navy:#0A0E27; --navy2:#131736; --navy3:#1A1F4A; --navy4:#232955;
-  --gold:#D4AF37; --gold-l:#F0D77B; --gold-d:#B8941E; --champ:#F7E7CE;
+  --espresso:#1A120B; --espresso2:#241810; --espresso3:#2E1F14; --espresso4:#3A2A1B;
+  --copper:#B87333; --copper-l:#E8A838; --copper-d:#8B5A2B; --amber:#D4923A;
+  --bronze:#9C6B30; --warm-gold:#D4A547; --cream:#F5E6C8;
   --emerald:#10B981; --emerald-l:#34D399; --emerald-d:#059669;
   --ruby:#E11D48; --crimson:#BE123C;
   --ivory:#FFF8E7; --ash:#94A3B8; --ash-l:#CBD5E1;
   --glass:rgba(255,248,231,0.05); --glass2:rgba(255,248,231,0.03);
-  --glass-b:rgba(212,175,55,0.22); --glass-h:rgba(212,175,55,0.4);
-  --shadow-d:0 20px 60px rgba(0,0,0,0.5); --shadow-g:0 0 40px rgba(212,175,55,0.12);
+  --glass-b:rgba(184,115,51,0.25); --glass-h:rgba(184,115,51,0.4);
+  --shadow-d:0 20px 60px rgba(0,0,0,0.5); --shadow-g:0 0 40px rgba(184,115,51,0.12);
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html{scroll-behavior:smooth}
 body{
   font-family:'Helvetica Neue','Segoe UI',Arial,sans-serif;
-  background:var(--navy); color:var(--ivory); line-height:1.6;
+  background:var(--espresso); color:var(--ivory); line-height:1.6;
   overflow-x:hidden; min-height:100vh;
 }
-/* deep-space + gold-glow background */
+/* warm espresso + copper-glow background */
 body::before{
   content:'';position:fixed;inset:0;z-index:-2;
   background:
-    radial-gradient(ellipse 900px 500px at 15% 8%,rgba(26,31,74,0.9),transparent 50%),
-    radial-gradient(ellipse 800px 600px at 85% 92%,rgba(212,175,55,0.06),transparent 50%),
-    radial-gradient(ellipse 600px 400px at 50% 50%,rgba(16,185,129,0.04),transparent 60%),
-    linear-gradient(160deg,var(--navy) 0%,var(--navy2) 100%);
+    radial-gradient(ellipse 900px 500px at 15% 8%,rgba(46,31,20,0.9),transparent 50%),
+    radial-gradient(ellipse 800px 600px at 85% 92%,rgba(184,115,51,0.08),transparent 50%),
+    radial-gradient(ellipse 600px 400px at 50% 50%,rgba(212,146,58,0.05),transparent 60%),
+    linear-gradient(160deg,var(--espresso) 0%,var(--espresso2) 100%);
 }
 /* drifting particle field */
 body::after{
   content:'';position:fixed;inset:0;z-index:-1;opacity:0.35;
   background-image:
-    radial-gradient(1px 1px at 12% 22%,var(--gold-l),transparent),
-    radial-gradient(1px 1px at 28% 67%,var(--champ),transparent),
-    radial-gradient(1px 1px at 47% 14%,var(--gold-l),transparent),
-    radial-gradient(1px 1px at 67% 82%,var(--champ),transparent),
-    radial-gradient(1px 1px at 82% 37%,var(--gold-l),transparent),
-    radial-gradient(1px 1px at 92% 58%,var(--emerald-l),transparent),
-    radial-gradient(1.5px 1.5px at 34% 45%,var(--gold),transparent),
-    radial-gradient(1.5px 1.5px at 72% 28%,var(--gold),transparent),
-    radial-gradient(1px 1px at 55% 75%,var(--emerald-l),transparent);
+    radial-gradient(1px 1px at 12% 22%,var(--copper-l),transparent),
+    radial-gradient(1px 1px at 28% 67%,var(--cream),transparent),
+    radial-gradient(1px 1px at 47% 14%,var(--amber),transparent),
+    radial-gradient(1px 1px at 67% 82%,var(--cream),transparent),
+    radial-gradient(1px 1px at 82% 37%,var(--copper-l),transparent),
+    radial-gradient(1px 1px at 92% 58%,var(--bronze),transparent),
+    radial-gradient(1.5px 1.5px at 34% 45%,var(--copper),transparent),
+    radial-gradient(1.5px 1.5px at 72% 28%,var(--warm-gold),transparent),
+    radial-gradient(1px 1px at 55% 75%,var(--amber),transparent);
   animation:drift 70s linear infinite;
 }
 @keyframes drift{from{transform:translateY(0)}to{transform:translateY(-50px)}}
@@ -61,13 +62,13 @@ body::after{
 }
 .lg::before{
   content:'';position:absolute;inset:0;border-radius:inherit;padding:1px;
-  background:linear-gradient(180deg,rgba(212,175,55,0.4),rgba(212,175,55,0.05) 30%,transparent 50%,rgba(212,175,55,0.15));
+  background:linear-gradient(180deg,rgba(184,115,51,0.4),rgba(184,115,51,0.05) 30%,transparent 50%,rgba(184,115,51,0.15));
   -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
   -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;
 }
 .lg:hover{box-shadow:var(--shadow-d),var(--shadow-g)}
 .lg-pad{padding:28px}
-.lg-pad h3{font-family:Georgia,serif;font-size:1.15rem;color:var(--gold-l);margin-bottom:4px}
+.lg-pad h3{font-family:Georgia,serif;font-size:1.15rem;color:var(--copper-l);margin-bottom:4px}
 .lg-pad .d{font-size:.8rem;color:var(--ash);margin-bottom:16px}
 
 /* ===== HERO ===== */
@@ -81,10 +82,10 @@ body::after{
   animation:floatY 6s ease-in-out infinite;transform-style:preserve-3d;
 }
 .fcard::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1px;
-  background:linear-gradient(135deg,rgba(212,175,55,0.4),transparent 60%);
+  background:linear-gradient(135deg,rgba(184,115,51,0.4),transparent 60%);
   -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
   -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
-.fcard .fv{font-family:Georgia,serif;font-size:1.6rem;font-weight:700;color:var(--gold-l)}
+.fcard .fv{font-family:Georgia,serif;font-size:1.6rem;font-weight:700;color:var(--copper-l)}
 .fcard .fl{font-size:.66rem;color:var(--ash);text-transform:uppercase;letter-spacing:1px;margin-top:3px}
 .fcard:nth-child(1){top:16%;left:7%;animation-delay:0s;transform:rotateY(-15deg) rotateX(5deg)}
 .fcard:nth-child(2){top:60%;left:11%;animation-delay:1.5s;transform:rotateY(-10deg) rotateX(-3deg)}
@@ -94,36 +95,36 @@ body::after{
 
 .hero-inner{text-align:center;position:relative;z-index:2}
 .hero-badge{display:inline-block;padding:7px 22px;border-radius:30px;
-  background:linear-gradient(135deg,rgba(212,175,55,0.15),rgba(16,185,129,0.08));
-  border:1px solid var(--glass-b);color:var(--gold-l);
+  background:linear-gradient(135deg,rgba(184,115,51,0.15),rgba(212,146,58,0.08));
+  border:1px solid var(--glass-b);color:var(--copper-l);
   font-size:.76rem;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;
   margin-bottom:24px;backdrop-filter:blur(10px);animation:fadeDown .8s ease}
 @keyframes fadeDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:none}}
 .hero h1{font-family:Georgia,serif;font-size:clamp(2rem,6vw,3.6rem);font-weight:700;line-height:1.1;letter-spacing:-1px;
-  background:linear-gradient(135deg,var(--gold-l) 0%,var(--gold) 40%,var(--champ) 70%,var(--gold-l) 100%);
+  background:linear-gradient(135deg,var(--copper-l) 0%,var(--copper) 35%,var(--amber) 60%,var(--warm-gold) 100%);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  text-shadow:0 0 80px rgba(212,175,55,0.3);animation:fadeUp 1s ease .2s both}
+  text-shadow:0 0 80px rgba(184,115,51,0.3);animation:fadeUp 1s ease .2s both}
 .hero h1 .em{background:linear-gradient(135deg,var(--emerald-l),var(--emerald),var(--emerald-d));
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
 .hero .lead{font-size:1.05rem;color:var(--ash-l);max-width:640px;margin:22px auto 0;animation:fadeUp 1s ease .4s both}
-.hero .lead b{color:var(--champ)}
+.hero .lead b{color:var(--cream)}
 .hero-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:34px;animation:fadeUp 1s ease .6s both}
 .btn{padding:14px 32px;border-radius:12px;font-size:.92rem;font-weight:600;cursor:pointer;border:none;
   transition:all .3s cubic-bezier(.2,.8,.2,1);text-decoration:none;display:inline-flex;align-items:center;gap:8px}
-.btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold-d));color:var(--navy);box-shadow:0 8px 30px rgba(212,175,55,0.35)}
-.btn-gold:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 12px 40px rgba(212,175,55,0.5)}
-.btn-ghost{background:var(--glass);color:var(--gold-l);border:1px solid var(--glass-b);backdrop-filter:blur(10px)}
+.btn-gold{background:linear-gradient(135deg,var(--copper-l),var(--copper-d));color:var(--espresso);box-shadow:0 8px 30px rgba(184,115,51,0.35)}
+.btn-gold:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 12px 40px rgba(184,115,51,0.5)}
+.btn-ghost{background:var(--glass);color:var(--copper-l);border:1px solid var(--glass-b);backdrop-filter:blur(10px)}
 .btn-ghost:hover{background:var(--glass-h);transform:translateY(-2px)}
 
 /* ===== SECTION ===== */
 .section{padding:70px 0;position:relative}
 .sec-head{text-align:center;margin-bottom:50px}
-.sec-head .kicker{color:var(--gold);font-size:.74rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px}
+.sec-head .kicker{color:var(--copper);font-size:.74rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px}
 .sec-head h2{font-family:Georgia,serif;font-size:clamp(1.6rem,4vw,2.4rem);font-weight:700;color:var(--ivory);letter-spacing:-.5px}
-.sec-head h2 .gd{background:linear-gradient(90deg,var(--gold-l),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.sec-head h2 .gd{background:linear-gradient(90deg,var(--copper-l),var(--copper));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .sec-head .sub{color:var(--ash);font-size:.94rem;max-width:580px;margin:12px auto 0}
-.divider{width:60px;height:3px;margin:18px auto 0;background:linear-gradient(90deg,transparent,var(--gold),transparent);border-radius:2px}
+.divider{width:60px;height:3px;margin:18px auto 0;background:linear-gradient(90deg,transparent,var(--copper-l),transparent);border-radius:2px}
 
 /* ===== KPI CARDS (3D) ===== */
 .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin:30px 0}
@@ -131,21 +132,21 @@ body::after{
 .kpi .lg{padding:22px 18px;text-align:center}
 .kpi:hover .lg{transform:rotateY(-8deg) rotateX(4deg) translateZ(10px);box-shadow:var(--shadow-d),var(--shadow-g)}
 .kpi .ic{font-size:1.8rem;margin-bottom:8px}
-.kpi .val{font-family:Georgia,serif;font-size:1.7rem;font-weight:700;color:var(--gold-l);line-height:1}
+.kpi .val{font-family:Georgia,serif;font-size:1.7rem;font-weight:700;color:var(--copper-l);line-height:1}
 .kpi .val.em{color:var(--emerald-l)}
 .kpi .lab{font-size:.72rem;color:var(--ash);text-transform:uppercase;letter-spacing:1px;margin-top:6px}
-.kpi .src{font-size:.66rem;color:var(--gold-d);margin-top:4px;font-weight:600}
+.kpi .src{font-size:.66rem;color:var(--copper-d);margin-top:4px;font-weight:600}
 
 /* ===== GLASS TABS ===== */
 .tabs{display:flex;gap:6px;margin:22px 0 0;flex-wrap:wrap}
 .tab{padding:10px 20px;cursor:pointer;font-size:.86rem;font-weight:600;color:var(--ash-l);
   border-radius:12px 12px 0 0;border:1px solid transparent;border-bottom:none;
   background:transparent;transition:all .25s;user-select:none;position:relative}
-.tab:hover{color:var(--gold-l);background:var(--glass)}
-.tab.active{background:var(--glass);color:var(--gold-l);border-color:var(--glass-b);
-  backdrop-filter:blur(10px);box-shadow:0 -4px 20px rgba(212,175,55,0.1)}
+.tab:hover{color:var(--copper-l);background:var(--glass)}
+.tab.active{background:var(--glass);color:var(--copper-l);border-color:var(--glass-b);
+  backdrop-filter:blur(10px);box-shadow:0 -4px 20px rgba(184,115,51,0.1)}
 .tab.active::after{content:'';position:absolute;bottom:-1px;left:20%;right:20%;height:2px;
-  background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+  background:linear-gradient(90deg,transparent,var(--copper-l),transparent)}
 
 .panel{display:none;animation:fade .4s ease}.panel.active{display:block}
 @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
@@ -157,10 +158,10 @@ body::after{
 /* ===== CHARTS ===== */
 svg text{font-family:'Helvetica Neue',Arial,sans-serif}
 .bar-row{cursor:pointer}.bar-row:hover .bar-rect{filter:brightness(1.15)}.bar-rect{transition:filter .15s}
-.tooltip{position:fixed;background:#0A0E27;color:var(--ivory);padding:8px 12px;border-radius:10px;
+.tooltip{position:fixed;background:#1A120B;color:var(--ivory);padding:8px 12px;border-radius:10px;
   font-size:.76rem;pointer-events:none;z-index:99;opacity:0;transition:opacity .12s;
   box-shadow:0 8px 24px rgba(0,0,0,0.4),0 0 0 1px var(--glass-b);max-width:280px;line-height:1.45;backdrop-filter:blur(10px)}
-.tooltip b{color:var(--gold-l)}
+.tooltip b{color:var(--copper-l)}
 .tooltip em{color:var(--emerald-l);font-style:normal}
 
 /* ===== 3D BAR VIZ ===== */
@@ -170,19 +171,19 @@ svg text{font-family:'Helvetica Neue',Arial,sans-serif}
 .bar3d{width:58px;border-radius:6px 6px 0 0;position:relative;transform-style:preserve-3d;
   transition:height 1.2s cubic-bezier(.2,.8,.2,1);cursor:pointer}
 .bar3d .face{position:absolute;border-radius:6px 6px 0 0}
-.bar3d .front{inset:0;background:linear-gradient(180deg,var(--gold-l),var(--gold-d))}
-.bar3d .top{top:-7px;left:0;right:0;height:14px;background:linear-gradient(135deg,var(--gold-l),var(--gold));
+.bar3d .front{inset:0;background:linear-gradient(180deg,var(--copper-l),var(--copper-d))}
+.bar3d .top{top:-7px;left:0;right:0;height:14px;background:linear-gradient(135deg,var(--copper-l),var(--copper));
   border-radius:4px;transform:rotateX(90deg) translateZ(7px)}
-.bar3d .side{right:-7px;top:0;bottom:0;width:14px;background:linear-gradient(180deg,var(--gold-d),var(--navy3));
+.bar3d .side{right:-7px;top:0;bottom:0;width:14px;background:linear-gradient(180deg,var(--copper-d),var(--espresso3));
   transform:rotateY(90deg) translateZ(-7px);border-radius:0 4px 4px 0}
 .bar3d .label{position:absolute;bottom:-26px;left:50%;transform:translateX(-50%);font-size:.7rem;color:var(--ash);white-space:nowrap}
-.bar3d .val{position:absolute;top:-22px;left:50%;transform:translateX(-50%);font-size:.78rem;font-weight:700;color:var(--gold-l);white-space:nowrap}
+.bar3d .val{position:absolute;top:-22px;left:50%;transform:translateX(-50%);font-size:.78rem;font-weight:700;color:var(--copper-l);white-space:nowrap}
 .bar3d:hover .front{filter:brightness(1.2)}
 
 /* ===== CALLOUTS ===== */
-.callout{background:rgba(212,175,55,0.06);border:1px solid var(--glass-b);border-left:4px solid var(--gold);
-  border-radius:10px;padding:12px 16px;margin:12px 0;font-size:.84rem;color:var(--champ)}
-.callout b{color:var(--gold-l)}
+.callout{background:rgba(184,115,51,0.06);border:1px solid var(--glass-b);border-left:4px solid var(--copper);
+  border-radius:10px;padding:12px 16px;margin:12px 0;font-size:.84rem;color:var(--cream)}
+.callout b{color:var(--copper-l)}
 .callout.red{background:rgba(225,29,72,0.06);border-color:rgba(225,29,72,0.2);border-left-color:var(--ruby)}
 .callout.red b{color:var(--ruby)}
 .callout.green{background:rgba(16,185,129,0.06);border-color:rgba(16,185,129,0.2);border-left-color:var(--emerald)}
@@ -190,30 +191,30 @@ svg text{font-family:'Helvetica Neue',Arial,sans-serif}
 
 /* ===== TABLE ===== */
 table{width:100%;border-collapse:collapse;font-size:.84rem;margin-top:8px}
-th{text-align:left;color:var(--gold-d);border-bottom:2px solid var(--glass-b);padding:9px 8px;font-size:.74rem;text-transform:uppercase;letter-spacing:.5px;font-weight:700}
-td{padding:9px 8px;border-bottom:1px solid rgba(212,175,55,0.08);color:var(--ash-l)}
-tr:hover td{background:rgba(212,175,55,0.04)}
+th{text-align:left;color:var(--copper-d);border-bottom:2px solid var(--glass-b);padding:9px 8px;font-size:.74rem;text-transform:uppercase;letter-spacing:.5px;font-weight:700}
+td{padding:9px 8px;border-bottom:1px solid rgba(184,115,51,0.08);color:var(--ash-l)}
+tr:hover td{background:rgba(184,115,51,0.04)}
 .pill{display:inline-block;padding:2px 9px;border-radius:12px;font-size:.7rem;font-weight:700}
-.opp-bar{height:7px;border-radius:4px;background:var(--navy3);overflow:hidden;margin-top:3px}
-.opp-bar>div{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--gold-d),var(--gold-l))}
+.opp-bar{height:7px;border-radius:4px;background:var(--espresso3);overflow:hidden;margin-top:3px}
+.opp-bar>div{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--copper-d),var(--copper-l))}
 
 /* ===== RECO CARDS ===== */
 .reco{position:relative;overflow:hidden;background:var(--glass);border:1px solid var(--glass-b);
-  border-left:5px solid var(--gold);border-radius:14px;padding:16px 20px;margin-bottom:14px;
+  border-left:5px solid var(--copper);border-radius:14px;padding:16px 20px;margin-bottom:14px;
   backdrop-filter:blur(10px);transition:all .3s;transform-style:preserve-3d}
 .reco::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1px;
-  background:linear-gradient(180deg,rgba(212,175,55,0.3),transparent 50%);
+  background:linear-gradient(180deg,rgba(184,115,51,0.3),transparent 50%);
   -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
   -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
 .reco:hover{transform:translateX(4px) translateZ(8px);box-shadow:var(--shadow-d),var(--shadow-g)}
 .reco .head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
-.reco .dname{font-family:Georgia,serif;font-size:1.1rem;font-weight:700;color:var(--gold-l)}
-.reco .score{background:linear-gradient(135deg,var(--gold),var(--gold-d));color:var(--navy);padding:4px 13px;border-radius:16px;font-size:.76rem;font-weight:700}
+.reco .dname{font-family:Georgia,serif;font-size:1.1rem;font-weight:700;color:var(--copper-l)}
+.reco .score{background:linear-gradient(135deg,var(--copper),var(--copper-d));color:var(--espresso);padding:4px 13px;border-radius:16px;font-size:.76rem;font-weight:700}
 .reco .why{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
 .reco .why span{background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);color:var(--emerald-l);
   padding:3px 10px;border-radius:14px;font-size:.72rem;font-weight:600}
 .reco .stats{font-size:.78rem;color:var(--ash);margin-top:4px}
-.reco .stats b{color:var(--champ)}
+.reco .stats b{color:var(--cream)}
 
 /* ===== REVEAL ===== */
 .reveal{opacity:0;transform:translateY(40px);transition:opacity .8s ease,transform .8s ease}
@@ -222,8 +223,8 @@ tr:hover td{background:rgba(212,175,55,0.04)}
 /* ===== FOOTER ===== */
 footer{padding:40px 20px;text-align:center;border-top:1px solid var(--glass-b);margin-top:40px}
 footer .fl{font-size:.82rem;color:var(--ash);line-height:1.8}
-footer .fl b{color:var(--gold-l)}
-footer .fb{font-size:.74rem;color:var(--gold-d);margin-top:8px}
+footer .fl b{color:var(--copper-l)}
+footer .fb{font-size:.74rem;color:var(--copper-d);margin-top:8px}
 
 @media(max-width:760px){
   .kpis{grid-template-columns:repeat(2,1fr)}.grid2,.grid3{grid-template-columns:1fr}
@@ -321,7 +322,7 @@ footer .fb{font-size:.74rem;color:var(--gold-d);margin-top:8px}
     <div class="panel" id="p-opportunity">
       <div class="lg lg-pad" style="margin-top:18px">
         <h3>Opportunity Matrix — demand × supply × quality</h3>
-        <div class="d">Each bubble = one domain. X = supply (courses), Y = demand (learners), size = opportunity score. <b style="color:var(--gold-l)">Top-left = high demand, low supply = build here.</b></div>
+        <div class="d">Each bubble = one domain. X = supply (courses), Y = demand (learners), size = opportunity score. <b style="color:var(--copper-l)">Top-left = high demand, low supply = build here.</b></div>
         <div id="chart-bubble" style="text-align:center"></div>
       </div>
       <div class="lg lg-pad" style="margin-top:18px">
@@ -377,7 +378,7 @@ footer .fb{font-size:.74rem;color:var(--gold-d);margin-top:8px}
 <script>
 const DATA={"meta":{"courseraCourses":891,"udemyCourses":3678,"totalCourses":4569,"totalLearners":92441020,"estMarketRevenueUdemy":884921315,"avgCourseraRating":4.68,"domainsTracked":11},"domains":[{"domain":"Other / General","courses":2275,"learners":32975440,"avgRating":4.71,"revenueEst":200221915,"coursera":420,"udemy":1855,"oppScore":37.7},{"domain":"Software Development","courses":577,"learners":14249524,"avgRating":4.65,"revenueEst":293603465,"coursera":79,"udemy":498,"oppScore":34.1},{"domain":"Data Science & Analytics","courses":82,"learners":9809572,"avgRating":4.59,"revenueEst":1170850,"coursera":74,"udemy":8,"oppScore":26.7},{"domain":"AI & Machine Learning","courses":50,"learners":9200368,"avgRating":4.6,"revenueEst":347985,"coursera":46,"udemy":4,"oppScore":25.3},{"domain":"Business & Management","courses":196,"learners":8475660,"avgRating":4.68,"revenueEst":17397400,"coursera":128,"udemy":68,"oppScore":22.8},{"domain":"Communication & Soft Skills","courses":36,"learners":5368599,"avgRating":4.7,"revenueEst":72310,"coursera":32,"udemy":4,"oppScore":15.2},{"domain":"Web Development","courses":416,"learners":4008666,"avgRating":4.72,"revenueEst":250389435,"coursera":6,"udemy":410,"oppScore":10.2},{"domain":"Finance & Accounting","courses":768,"learners":3992232,"avgRating":4.65,"revenueEst":95497715,"coursera":43,"udemy":725,"oppScore":9.0},{"domain":"Cloud & DevOps","courses":57,"learners":2364872,"avgRating":4.61,"revenueEst":6151710,"coursera":32,"udemy":25,"oppScore":6.5},{"domain":"Data Tools & Excel","courses":81,"learners":1374206,"avgRating":4.73,"revenueEst":16599285,"coursera":13,"udemy":68,"oppScore":3.9},{"domain":"Cybersecurity","courses":31,"learners":621881,"avgRating":4.59,"revenueEst":3469245,"coursera":18,"udemy":13,"oppScore":1.7}],"levelDist":[{"level":"Beginner","count":487},{"level":"Intermediate","count":198},{"level":"Mixed","count":187},{"level":"Advanced","count":19}],"certTypeDist":[{"type":"COURSE","count":582},{"type":"SPECIALIZATION","count":297},{"type":"PROFESSIONAL CERTIFICATE","count":12}],"topOrgs":[{"org":"Univ. of Michigan","learners":7437700,"courses":41},{"org":"Univ. of Pennsylvania","learners":5501300,"courses":59},{"org":"Stanford University","learners":4854000,"courses":16},{"org":"UC Irvine","learners":4326000,"courses":27},{"org":"Johns Hopkins","learners":4298900,"courses":28},{"org":"Duke University","learners":3967600,"courses":28},{"org":"Yale University","learners":3952000,"courses":17},{"org":"IBM","learners":2956400,"courses":22},{"org":"deeplearning.ai","learners":2863400,"courses":16},{"org":"Google Cloud","learners":2604300,"courses":34}],"priceBins":[{"label":"Free","courses":310,"avgSubs":11533,"totalSubs":3575525},{"label":"$1-50","courses":2034,"avgSubs":1431,"totalSubs":2911144},{"label":"$51-100","courses":611,"avgSubs":2703,"totalSubs":1651988},{"label":"$101-150","courses":238,"avgSubs":3666,"totalSubs":872525},{"label":"$151-200","courses":485,"avgSubs":5665,"totalSubs":2747938}],"subjectDist":[{"subject":"Web Development","courses":1200,"learners":7980572},{"subject":"Business Finance","courses":1195,"learners":1868711},{"subject":"Musical Instr.","courses":680,"learners":846689},{"subject":"Graphic Design","courses":603,"learners":1063148}],"yearTrend":[{"year":2012,"courses":45,"learners":555339},{"year":2013,"courses":202,"learners":1723438},{"year":2014,"courses":491,"learners":1930406},{"year":2015,"courses":1014,"learners":3475324},{"year":2016,"courses":1206,"learners":2966644},{"year":2017,"courses":715,"learners":988941}],"topCourses":[{"title":"Machine Learning","org":"Stanford","rating":4.9,"enroll":3200000,"level":"Mixed","domain":"AI & ML"},{"title":"The Science of Well-Being","org":"Yale","rating":4.9,"enroll":2500000,"level":"Mixed","domain":"Other"},{"title":"Python for Everybody","org":"U of Michigan","rating":4.8,"enroll":1500000,"level":"Beginner","domain":"Software Dev"},{"title":"Programming for Everybody","org":"U of Michigan","rating":4.8,"enroll":1300000,"level":"Mixed","domain":"Software Dev"},{"title":"Data Science","org":"Johns Hopkins","rating":4.5,"enroll":830000,"level":"Beginner","domain":"Data Science"},{"title":"Career Success","org":"UC Irvine","rating":4.4,"enroll":790000,"level":"Beginner","domain":"Other"},{"title":"English for Career Dev","org":"UPenn","rating":4.8,"enroll":760000,"level":"Mixed","domain":"Soft Skills"},{"title":"Successful Negotiation","org":"U of Michigan","rating":4.8,"enroll":750000,"level":"Mixed","domain":"Soft Skills"},{"title":"Data Science: R","org":"Johns Hopkins","rating":4.6,"enroll":740000,"level":"Beginner","domain":"Data Science"},{"title":"Deep Learning","org":"deeplearning.ai","rating":4.8,"enroll":690000,"level":"Intermediate","domain":"AI & ML"},{"title":"Neural Networks & DL","org":"deeplearning.ai","rating":4.9,"enroll":630000,"level":"Intermediate","domain":"AI & ML"},{"title":"Improve English Comm.","org":"Georgia Tech","rating":4.7,"enroll":610000,"level":"Beginner","domain":"Soft Skills"},{"title":"Academic English","org":"UC Irvine","rating":4.7,"enroll":540000,"level":"Beginner","domain":"Soft Skills"},{"title":"Business Foundations","org":"UPenn","rating":4.7,"enroll":510000,"level":"Beginner","domain":"Business"},{"title":"Excel to MySQL","org":"Duke","rating":4.6,"enroll":490000,"level":"Beginner","domain":"Data Science"}],"recommendations":[{"domain":"Software Development","oppScore":34.1,"learners":14249524,"avgRating":4.65,"reasons":["very high learner demand","learners rate content highly"]},{"domain":"Data Science & Analytics","oppScore":26.7,"learners":9809572,"avgRating":4.59,"reasons":["very high learner demand"]},{"domain":"AI & Machine Learning","oppScore":25.3,"learners":9200368,"avgRating":4.6,"reasons":["very high learner demand","learners rate content highly"]},{"domain":"Business & Management","oppScore":22.8,"learners":8475660,"avgRating":4.68,"reasons":["very high learner demand","learners rate content highly"]},{"domain":"Communication & Soft Skills","oppScore":15.2,"learners":5368599,"avgRating":4.7,"reasons":["very high learner demand","learners rate content highly"]},{"domain":"Web Development","oppScore":10.2,"learners":4008666,"avgRating":4.72,"reasons":["very high learner demand","learners rate content highly"]}]};
 
-const COL=["#D4AF37","#F0D77B","#B8941E","#10B981","#34D399","#059669","#E08035","#D4862A","#F59E0B","#C97A3D","#EF9A4A"];
+const COL=["#B87333","#E8A838","#D4923A","#9C6B30","#D4A547","#C68642","#E08035","#B5793E","#F0B649","#A07028","#D89540"];
 const tip=document.getElementById('tooltip');
 function showTip(e,h){tip.innerHTML=h;tip.style.opacity=1;tip.style.left=(e.clientX+12)+'px';tip.style.top=(e.clientY-10)+'px'}
 function moveTip(e){tip.style.left=(e.clientX+12)+'px';tip.style.top=(e.clientY-10)+'px'}
@@ -403,7 +404,7 @@ const lw=118,bx=lw+6,bw=o.w-lw-70;
 data.forEach((d,i)=>{const y=i*34+6,bh=22,bw2=Math.max(2,(d.value/o.max)*bw),col=COL[i%COL.length];
 s+=`<text x="${lw-6}" y="${y+bh-6}" text-anchor="end" font-size="10.5" fill="#CBD5E1">${d.label}</text>`;
 s+=`<g class="bar-row" data-i="${i}"><rect class="bar-rect" x="${bx}" y="${y}" width="${bw2}" height="${bh}" rx="4" fill="${col}" opacity="0.9"/>`;
-s+=`<text x="${bx+bw2+5}" y="${y+bh-6}" font-size="10" fill="#F0D77B" font-weight="700">${o.fmt(d.value)}${o.unit}</text></g>`});
+s+=`<text x="${bx+bw2+5}" y="${y+bh-6}" font-size="10" fill="#E8A838" font-weight="700">${o.fmt(d.value)}${o.unit}</text></g>`});
 s+=`</svg>`;el(c).innerHTML=s;
 el(c).querySelectorAll('.bar-row').forEach((g,i)=>{g.addEventListener('mousemove',e=>{showTip(e,`<b>${data[i].label}</b><br>${o.fmt(data[i].value)}${o.unit}${data[i].extra?'<br>'+data[i].extra:''}`);moveTip(e)});g.addEventListener('mouseleave',hideTip)})}
 
@@ -416,10 +417,10 @@ data.forEach((d,i)=>{const f=d.value/tot,a2=a+f*2*Math.PI;
 const p=(r,aa)=>[cx+r*Math.cos(aa),cy+r*Math.sin(aa)];
 const[x0,y0]=p(o.r,a),[x1,y1]=p(o.r,a2),[xi1,yi1]=p(o.ri,a2),[xi0,yi0]=p(o.ri,a);
 const lg=f>0.5?1:0,col=COL[i%COL.length];
-s+=`<path d="M${x0} ${y0} A${o.r} ${o.r} 0 ${lg} 1 ${x1} ${y1} L${xi1} ${yi1} A${o.ri} ${o.ri} 0 ${lg} 0 ${xi0} ${yi0} Z" fill="${col}" stroke="#0A0E27" stroke-width="2" class="bar-row" data-i="${i}"/>`;a=a2});
-s+=`<text x="${cx}" y="${cy-2}" text-anchor="middle" font-size="19" font-weight="700" fill="#F0D77B">${tot}</text>`;
-s+=`<text x="${cx}" y="${cy+13}" text-anchor="middle" font-size="8.5" fill="#B8941E">courses</text></svg>`;
-el(c).innerHTML=`<div style="text-align:center">${s}</div><div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:10px;font-size:.72rem;color:var(--ash)">`+data.map((d,i)=>`<span><i style="display:inline-block;width:10px;height:10px;border-radius:3px;background:${COL[i%COL.length]};margin-right:4px"></i>${d.label} <b style="color:#F0D77B">${Math.round(d.value/tot*100)}%</b></span>`).join('')+`</div>`;
+s+=`<path d="M${x0} ${y0} A${o.r} ${o.r} 0 ${lg} 1 ${x1} ${y1} L${xi1} ${yi1} A${o.ri} ${o.ri} 0 ${lg} 0 ${xi0} ${yi0} Z" fill="${col}" stroke="#1A120B" stroke-width="2" class="bar-row" data-i="${i}"/>`;a=a2});
+s+=`<text x="${cx}" y="${cy-2}" text-anchor="middle" font-size="19" font-weight="700" fill="#E8A838">${tot}</text>`;
+s+=`<text x="${cx}" y="${cy+13}" text-anchor="middle" font-size="8.5" fill="#8B5A2B">courses</text></svg>`;
+el(c).innerHTML=`<div style="text-align:center">${s}</div><div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:10px;font-size:.72rem;color:var(--ash)">`+data.map((d,i)=>`<span><i style="display:inline-block;width:10px;height:10px;border-radius:3px;background:${COL[i%COL.length]};margin-right:4px"></i>${d.label} <b style="color:#E8A838">${Math.round(d.value/tot*100)}%</b></span>`).join('')+`</div>`;
 el(c).querySelectorAll('.bar-row').forEach((p,i)=>{p.addEventListener('mousemove',e=>{showTip(e,`<b>${data[i].label}</b><br>${data[i].value} courses (${Math.round(data[i].value/tot*100)}%)`);moveTip(e)});p.addEventListener('mouseleave',hideTip)})}
 
 /* vertical bar */
@@ -427,7 +428,7 @@ function vBar(c,data,o={}){
 o=Object.assign({w:420,h:210,max:Math.max(...data.map(d=>d.value)),fmt:fmtM,unit:''},o);
 let s=`<svg width="100%" viewBox="0 0 ${o.w} ${o.h}" preserveAspectRatio="xMidYMid meet">`;
 const pl=36,pb=30,pw=o.w-pl-12,ph=o.h-pb-16;
-for(let g=0;g<=4;g++){const gy=16+ph*(1-g/4);s+=`<line x1="${pl}" y1="${gy}" x2="${pl+pw}" y2="${gy}" stroke="rgba(212,175,55,0.1)" stroke-width="1"/><text x="${pl-4}" y="${gy+3}" text-anchor="end" font-size="8.5" fill="#94A3B8">${o.fmt(Math.round(o.max*g/4))}</text>`}
+for(let g=0;g<=4;g++){const gy=16+ph*(1-g/4);s+=`<line x1="${pl}" y1="${gy}" x2="${pl+pw}" y2="${gy}" stroke="rgba(184,115,51,0.1)" stroke-width="1"/><text x="${pl-4}" y="${gy+3}" text-anchor="end" font-size="8.5" fill="#94A3B8">${o.fmt(Math.round(o.max*g/4))}</text>`}
 const bw=pw/data.length*0.6,gap=pw/data.length;
 data.forEach((d,i)=>{const x=pl+i*gap+gap*0.2,bh=(d.value/o.max)*ph,y=16+ph-bh,col=COL[i%COL.length];
 s+=`<g class="bar-row" data-i="${i}"><rect class="bar-rect" x="${x}" y="${y}" width="${bw}" height="${bh}" rx="4" fill="${col}" opacity="0.9"/>`;
@@ -440,13 +441,13 @@ function lineChart(c,data,o={}){
 o=Object.assign({w:420,h:210,maxV:Math.max(...data.map(d=>d.value))},o);
 let s=`<svg width="100%" viewBox="0 0 ${o.w} ${o.h}" preserveAspectRatio="xMidYMid meet">`;
 const pl=36,pb=34,pw=o.w-pl-14,ph=o.h-pb-16;
-for(let g=0;g<=4;g++){const gy=16+ph*(1-g/4);s+=`<line x1="${pl}" y1="${gy}" x2="${pl+pw}" y2="${gy}" stroke="rgba(212,175,55,0.1)" stroke-width="1"/><text x="${pl-4}" y="${gy+3}" text-anchor="end" font-size="8.5" fill="#94A3B8">${Math.round(o.maxV*g/4)}</text>`}
+for(let g=0;g<=4;g++){const gy=16+ph*(1-g/4);s+=`<line x1="${pl}" y1="${gy}" x2="${pl+pw}" y2="${gy}" stroke="rgba(184,115,51,0.1)" stroke-width="1"/><text x="${pl-4}" y="${gy+3}" text-anchor="end" font-size="8.5" fill="#94A3B8">${Math.round(o.maxV*g/4)}</text>`}
 const pts=data.map((d,i)=>[pl+(i/(data.length-1))*pw,16+ph-(d.value/o.maxV)*ph]);
 let path=pts.map((p,i)=>(i?'L':'M')+p[0]+' '+p[1]).join(' ');
 s+=`<path d="${path} L${pts[pts.length-1][0]} ${16+ph} L${pts[0][0]} ${16+ph} Z" fill="url(#aG)" opacity="0.2"/>`;
-s+=`<defs><linearGradient id="aG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D4AF37"/><stop offset="1" stop-color="#D4AF37" stop-opacity="0.05"/></linearGradient></defs>`;
-s+=`<path d="${path}" fill="none" stroke="#D4AF37" stroke-width="2.5" stroke-linejoin="round"/>`;
-pts.forEach((p,i)=>{s+=`<g class="bar-row" data-i="${i}"><circle cx="${p[0]}" cy="${p[1]}" r="4.5" fill="#F0D77B" stroke="#0A0E27" stroke-width="1.5"/>`;
+s+=`<defs><linearGradient id="aG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B87333"/><stop offset="1" stop-color="#B87333" stop-opacity="0.05"/></linearGradient></defs>`;
+s+=`<path d="${path}" fill="none" stroke="#B87333" stroke-width="2.5" stroke-linejoin="round"/>`;
+pts.forEach((p,i)=>{s+=`<g class="bar-row" data-i="${i}"><circle cx="${p[0]}" cy="${p[1]}" r="4.5" fill="#E8A838" stroke="#1A120B" stroke-width="1.5"/>`;
 s+=`<text x="${p[0]}" y="${o.h-pb+14}" text-anchor="middle" font-size="9" fill="#CBD5E1">${data[i].label}</text></g>`});
 s+=`</svg>`;el(c).innerHTML=s;
 el(c).querySelectorAll('.bar-row').forEach((g,i)=>{g.addEventListener('mousemove',e=>{showTip(e,`<b>${data[i].label}</b><br>${data[i].value} ${o.unit||''}`);moveTip(e)});g.addEventListener('mouseleave',hideTip)})}
@@ -457,16 +458,16 @@ const data=DATA.domains.filter(d=>d.domain!=="Other / General");
 const w=620,h=350,pl=52,pb=46,pt=20,pr=20,pw=w-pl-pr,ph=h-pb-pt;
 const ms=Math.max(...data.map(d=>d.courses)),md=Math.max(...data.map(d=>d.learners));
 let s=`<svg width="100%" viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid meet">`;
-for(let g=0;g<=4;g++){const gy=pt+ph*(1-g/4);s+=`<line x1="${pl}" y1="${gy}" x2="${pl+pw}" y2="${gy}" stroke="rgba(212,175,55,0.1)"/><text x="${pl-5}" y="${gy+3}" text-anchor="end" font-size="8.5" fill="#94A3B8">${fmtM(Math.round(md*g/4))}</text>`}
-for(let g=0;g<=4;g++){const gx=pl+pw*g/4;s+=`<line x1="${gx}" y1="${pt}" x2="${gx}" y2="${pt+ph}" stroke="rgba(212,175,55,0.1)"/><text x="${gx}" y="${h-pb+16}" text-anchor="middle" font-size="8.5" fill="#94A3B8">${Math.round(ms*g/4)}</text>`}
-s+=`<text x="${pl+pw/2}" y="${h-6}" text-anchor="middle" font-size="10" fill="#D4AF37" font-weight="700">Supply → courses</text>`;
-s+=`<text x="14" y="${pt+ph/2}" text-anchor="middle" font-size="10" fill="#D4AF37" font-weight="700" transform="rotate(-90 14 ${pt+ph/2})">Demand → learners</text>`;
-s+=`<rect x="${pl}" y="${pt}" width="${pw*0.5}" height="${ph*0.5}" fill="rgba(212,175,55,0.06)"/>`;
-s+=`<text x="${pl+8}" y="${pt+14}" font-size="8.5" fill="#D4AF37" font-weight="700">★ BUILD HERE</text>`;
+for(let g=0;g<=4;g++){const gy=pt+ph*(1-g/4);s+=`<line x1="${pl}" y1="${gy}" x2="${pl+pw}" y2="${gy}" stroke="rgba(184,115,51,0.1)"/><text x="${pl-5}" y="${gy+3}" text-anchor="end" font-size="8.5" fill="#94A3B8">${fmtM(Math.round(md*g/4))}</text>`}
+for(let g=0;g<=4;g++){const gx=pl+pw*g/4;s+=`<line x1="${gx}" y1="${pt}" x2="${gx}" y2="${pt+ph}" stroke="rgba(184,115,51,0.1)"/><text x="${gx}" y="${h-pb+16}" text-anchor="middle" font-size="8.5" fill="#94A3B8">${Math.round(ms*g/4)}</text>`}
+s+=`<text x="${pl+pw/2}" y="${h-6}" text-anchor="middle" font-size="10" fill="#B87333" font-weight="700">Supply → courses</text>`;
+s+=`<text x="14" y="${pt+ph/2}" text-anchor="middle" font-size="10" fill="#B87333" font-weight="700" transform="rotate(-90 14 ${pt+ph/2})">Demand → learners</text>`;
+s+=`<rect x="${pl}" y="${pt}" width="${pw*0.5}" height="${ph*0.5}" fill="rgba(184,115,51,0.06)"/>`;
+s+=`<text x="${pl+8}" y="${pt+14}" font-size="8.5" fill="#B87333" font-weight="700">★ BUILD HERE</text>`;
 data.forEach((d,i)=>{const x=pl+(d.courses/ms)*pw,y=pt+ph-(d.learners/md)*ph;
 const r=Math.max(8,8+d.oppScore*0.45),col=COL[i%COL.length];
-s+=`<g class="bar-row" data-i="${i}"><circle cx="${x}" cy="${y}" r="${r}" fill="${col}" opacity="0.75" stroke="#0A0E27" stroke-width="1.5"/>`;
-if(d.courses<120)s+=`<text x="${x}" y="${y+3}" text-anchor="middle" font-size="8" fill="#0A0E27" font-weight="700">${d.domain.split(' ')[0].slice(0,5)}</text>`;
+s+=`<g class="bar-row" data-i="${i}"><circle cx="${x}" cy="${y}" r="${r}" fill="${col}" opacity="0.75" stroke="#1A120B" stroke-width="1.5"/>`;
+if(d.courses<120)s+=`<text x="${x}" y="${y+3}" text-anchor="middle" font-size="8" fill="#1A120B" font-weight="700">${d.domain.split(' ')[0].slice(0,5)}</text>`;
 s+=`</g>`});
 s+=`</svg>`;el(c).innerHTML=s;
 el(c).querySelectorAll('.bar-row').forEach((g,i)=>{const d=data[i];g.addEventListener('mousemove',e=>{showTip(e,`<b>${d.domain}</b><br>Learners: <em>${fmtM(d.learners)}</em><br>Courses: ${d.courses}<br>Rating: ${d.avgRating||'n/a'}★<br>Opp score: <em>${d.oppScore}</em>`);moveTip(e)});g.addEventListener('mouseleave',hideTip)})}
@@ -481,11 +482,11 @@ data.forEach((d,i)=>{const y=i*rowH+6,bh=18,bw=(d.learners/maxL)*barW,col=COL[i%
 s+=`<text x="${lw-6}" y="${y+bh-5}" text-anchor="end" font-size="9" fill="#CBD5E1">${d.domain.length>15?d.domain.slice(0,14)+'…':d.domain}</text>`;
 s+=`<g class="bar-row" data-i="${i}"><rect class="bar-rect" x="${lw+4}" y="${y}" width="${bw}" height="${bh}" rx="3" fill="${col}" opacity="0.85"/>`;
 const sx=lw+4+(d.courses/maxC)*barW;
-s+=`<line x1="${lw+4}" y1="${y+bh/2}" x2="${sx}" y2="${y+bh/2}" stroke="#F0D77B" stroke-width="1.5" stroke-dasharray="3 2"/>`;
-s+=`<circle cx="${sx}" cy="${y+bh/2}" r="4" fill="#F0D77B"/></g>`;
-s+=`<text x="${lw+4+bw+4}" y="${y+bh-5}" font-size="9" fill="#F0D77B" font-weight="700">${fmtM(d.learners)}</text>`});
+s+=`<line x1="${lw+4}" y1="${y+bh/2}" x2="${sx}" y2="${y+bh/2}" stroke="#E8A838" stroke-width="1.5" stroke-dasharray="3 2"/>`;
+s+=`<circle cx="${sx}" cy="${y+bh/2}" r="4" fill="#E8A838"/></g>`;
+s+=`<text x="${lw+4+bw+4}" y="${y+bh-5}" font-size="9" fill="#E8A838" font-weight="700">${fmtM(d.learners)}</text>`});
 s+=`</svg>`;
-el(c).innerHTML=`${s}<div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;font-size:.72rem;color:var(--ash)"><span><i style="display:inline-block;width:10px;height:10px;border-radius:3px;background:#D4AF37;margin-right:4px"></i>Learners (demand)</span><span><i style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#F0D77B;margin-right:4px"></i>Courses (supply)</span></div>`;
+el(c).innerHTML=`${s}<div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;font-size:.72rem;color:var(--ash)"><span><i style="display:inline-block;width:10px;height:10px;border-radius:3px;background:#B87333;margin-right:4px"></i>Learners (demand)</span><span><i style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#E8A838;margin-right:4px"></i>Courses (supply)</span></div>`;
 el(c).querySelectorAll('.bar-row').forEach((g,i)=>{const d=data[i];g.addEventListener('mousemove',e=>{showTip(e,`<b>${d.domain}</b><br>Demand: <em>${fmtM(d.learners)}</em><br>Supply: ${d.courses} courses<br>Gap: ${(d.learners/d.courses/1000).toFixed(1)}k learners/course`);moveTip(e)});g.addEventListener('mouseleave',hideTip)})}
 
 /* render */
@@ -496,13 +497,13 @@ donut('chart-cert',DATA.certTypeDist.map(d=>({label:d.type.charAt(0)+d.type.slic
 comboDS('chart-ds');
 hBar('chart-rating',DATA.domains.filter(d=>d.avgRating&&d.domain!=="Other / General").sort((a,b)=>b.avgRating-a.avgRating).map(d=>({label:d.domain.split(' &')[0],value:d.avgRating,extra:d.courses+' courses'})),{w:430,max:5,fmt:v=>v.toFixed(2),unit:' ★'});
 (function(){const rows=DATA.domains.filter(d=>d.domain!=="Other / General").sort((a,b)=>b.oppScore-a.oppScore);
-el('tbl-domains').innerHTML=`<thead><tr><th>Domain</th><th>Learners</th><th>Courses</th><th>Rating</th><th>Opp. score</th></tr></thead><tbody>`+rows.map(d=>`<tr><td><b style="color:#FFF8E7">${d.domain}</b></td><td>${fmtM(d.learners)}</td><td>${d.courses}</td><td>${d.avgRating?d.avgRating.toFixed(2)+' ★':'—'}</td><td><div class="opp-bar"><div style="width:${Math.min(100,d.oppScore*2.4)}%"></div></div><span style="font-size:.78rem;color:#F0D77B;font-weight:700">${d.oppScore}</span></td></tr>`).join('')+`</tbody>`})();
+el('tbl-domains').innerHTML=`<thead><tr><th>Domain</th><th>Learners</th><th>Courses</th><th>Rating</th><th>Opp. score</th></tr></thead><tbody>`+rows.map(d=>`<tr><td><b style="color:#FFF8E7">${d.domain}</b></td><td>${fmtM(d.learners)}</td><td>${d.courses}</td><td>${d.avgRating?d.avgRating.toFixed(2)+' ★':'—'}</td><td><div class="opp-bar"><div style="width:${Math.min(100,d.oppScore*2.4)}%"></div></div><span style="font-size:.78rem;color:#E8A838;font-weight:700">${d.oppScore}</span></td></tr>`).join('')+`</tbody>`})();
 bubble('chart-bubble');
 vBar('chart-price',DATA.priceBins.map(d=>({label:d.label,value:d.avgSubs})),{max:12000,fmt:fmtM,unit:' avg subs'});
 lineChart('chart-year',DATA.yearTrend.map(d=>({label:d.year,value:d.courses})),{w:430,maxV:1300,unit:'courses'});
 hBar('chart-subject',DATA.subjectDist.map(d=>({label:d.subject,value:d.courses,extra:fmtM(d.learners)+' learners'})),{w:460});
-(function(){el('reco-list').innerHTML=DATA.recommendations.map((r,i)=>`<div class="reco"><div class="head"><div><span style="font-size:.8rem;color:#B8941E;font-weight:700">#${i+1}</span> <span class="dname">${r.domain}</span></div><span class="score">Score ${r.oppScore}</span></div><div class="why">${r.reasons.map(x=>`<span>✓ ${x}</span>`).join('')}</div><div class="stats"><b>${fmtM(r.learners)}</b> learners · <b>${r.avgRating?r.avgRating.toFixed(2):'—'}★</b> avg rating. <b style="color:#34D399">Recommendation:</b> build a tiered training program — free feeder + paid advanced track.</div></div>`).join('');
-el('tbl-top').innerHTML=`<thead><tr><th>#</th><th>Course</th><th>Provider</th><th>Learners</th><th>Rating</th><th>Level</th></tr></thead><tbody>`+DATA.topCourses.map((c,i)=>`<tr><td>${i+1}</td><td><b style="color:#FFF8E7">${c.title}</b><br><span style="font-size:.7rem;color:#D4AF37">${c.domain}</span></td><td>${c.org}</td><td>${fmtM(c.enroll)}</td><td><span class="pill" style="background:rgba(212,175,55,0.15);color:#F0D77B">${c.rating}★</span></td><td>${c.level}</td></tr>`).join('')+`</tbody>`})();
+(function(){el('reco-list').innerHTML=DATA.recommendations.map((r,i)=>`<div class="reco"><div class="head"><div><span style="font-size:.8rem;color:#8B5A2B;font-weight:700">#${i+1}</span> <span class="dname">${r.domain}</span></div><span class="score">Score ${r.oppScore}</span></div><div class="why">${r.reasons.map(x=>`<span>✓ ${x}</span>`).join('')}</div><div class="stats"><b>${fmtM(r.learners)}</b> learners · <b>${r.avgRating?r.avgRating.toFixed(2):'—'}★</b> avg rating. <b style="color:#34D399">Recommendation:</b> build a tiered training program — free feeder + paid advanced track.</div></div>`).join('');
+el('tbl-top').innerHTML=`<thead><tr><th>#</th><th>Course</th><th>Provider</th><th>Learners</th><th>Rating</th><th>Level</th></tr></thead><tbody>`+DATA.topCourses.map((c,i)=>`<tr><td>${i+1}</td><td><b style="color:#FFF8E7">${c.title}</b><br><span style="font-size:.7rem;color:#B87333">${c.domain}</span></td><td>${c.org}</td><td>${fmtM(c.enroll)}</td><td><span class="pill" style="background:rgba(184,115,51,0.15);color:#E8A838">${c.rating}★</span></td><td>${c.level}</td></tr>`).join('')+`</tbody>`})();
 
 /* tabs */
 document.querySelectorAll('.tab').forEach(t=>{t.addEventListener('click',()=>{
@@ -511,8 +512,10 @@ document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
 t.classList.add('active');el('p-'+t.dataset.t).classList.add('active')})});
 
 /* scroll reveal */
+if(typeof IntersectionObserver!=='undefined'){
 const ro=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');ro.unobserve(e.target)}})},{threshold:0.1});
 document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+}else{document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));}
 </script>
 </body>
 </html>
